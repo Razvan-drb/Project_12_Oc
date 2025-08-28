@@ -15,9 +15,9 @@ class Config:
         if not cls.DATABASE_URL:
             raise ValueError("DATABASE_URL environment variable is required")
 
-        # Sentry DSN is optional for development but recommended
+        # Sentry DSN is optional for development
         if not cls.SENTRY_DSN:
-            print("Warning: SENTRY_DSN not set. Error logging will be limited.")
+            print("Warning: SENTRY_DSN not set. Error logging will be limited to console.")
 
 
 # Validate configuration on import
