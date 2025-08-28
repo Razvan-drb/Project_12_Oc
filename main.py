@@ -2,7 +2,7 @@
 import click
 import sentry_sdk
 from config import Config
-from epic_events.cli import auth_commands, client_commands, contract_commands, event_commands, user_commands
+from epic_events.cli import auth_group, client_group, contract_group, event_group, user_group
 
 # Initialize Sentry only if DSN is provided
 if Config.SENTRY_DSN and Config.SENTRY_DSN.strip():
@@ -23,11 +23,11 @@ def cli():
     pass
 
 # Add all command groups
-cli.add_command(auth_commands.auth_commands, name='auth')
-cli.add_command(client_commands.client_commands, name='clients')
-cli.add_command(contract_commands.contract_commands, name='contracts')
-cli.add_command(event_commands.event_commands, name='events')
-cli.add_command(user_commands.user_commands, name='users')
+cli.add_command(auth_group, name='auth')
+cli.add_command(client_group, name='clients')
+cli.add_command(contract_group, name='contracts')
+cli.add_command(event_group, name='events')
+cli.add_command(user_group, name='users')
 
 if __name__ == '__main__':
     cli()
