@@ -34,5 +34,3 @@ cli.add_command(user_group, name='users')
 if __name__ == '__main__':
     cli()
 # TODO creer une erreur volontaire pour tester sentry
-# le code est correctement formaté et documenté, flake8
-# l’étudiant sait expliquer comment et pourquoi il a structuré son code (design patterns, data access layer, séparation des responsabilités).
