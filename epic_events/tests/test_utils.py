@@ -1,10 +1,8 @@
 import os
 
-import pytest
-from epic_events.utils.auth import authenticate_user
 from epic_events.utils.permissions import has_management_permission, has_sales_permission, has_support_permission
-from epic_events.utils.display import print_success, print_error, print_info, print_warning, display_table
-from epic_events.utils.session import SessionManager, session_manager
+from epic_events.utils.display import print_success, print_error, print_info, print_warning
+from epic_events.utils.session import SessionManager
 
 
 def test_auth_utilities(db_session):
@@ -15,8 +13,8 @@ def test_auth_utilities(db_session):
     assert user is not None
 
     # Test password checking
-    assert user.check_password("test123") == True
-    assert user.check_password("wrongpassword") == False
+    assert user.check_password("test123")
+    assert not user.check_password("wrongpassword")
 
 
 def test_permission_utilities():
@@ -32,19 +30,19 @@ def test_permission_utilities():
     support_user = MockUser('support')
     invalid_user = MockUser('invalid')
 
-    assert has_management_permission(management_user) == True
-    assert has_management_permission(sales_user) == False
+    assert has_management_permission(management_user)
+    assert not has_management_permission(sales_user)
 
-    assert has_sales_permission(sales_user) == True
-    assert has_sales_permission(support_user) == False
+    assert has_sales_permission(sales_user)
+    assert not has_sales_permission(support_user)
 
-    assert has_support_permission(support_user) == True
-    assert has_support_permission(management_user) == False
+    assert has_support_permission(support_user)
+    assert not has_support_permission(management_user)
 
     # Invalid department should return False
-    assert has_management_permission(invalid_user) == False
-    assert has_sales_permission(invalid_user) == False
-    assert has_support_permission(invalid_user) == False
+    assert not has_management_permission(invalid_user)
+    assert not has_sales_permission(invalid_user)
+    assert not has_support_permission(invalid_user)
 
 
 def test_display_utilities(capsys):
@@ -67,10 +65,10 @@ def test_session_utilities():
     manager = SessionManager()
 
     # Test session file operations
-    manager.clear_session()  # Should not raise errors
+    manager.clear_session()
 
     # Test loading non-existent session
-    assert manager.load_session() == False
+    assert not manager.load_session()
 
 
 def test_session_manager_comprehensive():
@@ -88,7 +86,7 @@ def test_session_manager_comprehensive():
     manager.create_session(test_user)
 
     # Test loading session
-    assert manager.load_session() == True
+    assert manager.load_session()
     assert manager.get_current_user_id() == 1
     assert manager.get_current_department() == 'management'
 
@@ -104,7 +102,7 @@ def test_session_manager_comprehensive():
         json.dump(session_data, f)
 
     # Should not load expired session
-    assert manager.load_session() == False
+    assert not manager.load_session()
 
     # Test clearing session
     manager.clear_session()
@@ -150,20 +148,20 @@ def test_permission_utilities_comprehensive():
     # Test management can access any client
     management_user = MockUser(1, 'management')
     client = MockClient(999)  # Different user ID
-    assert can_access_client(management_user, client) == True
+    assert can_access_client(management_user, client)
 
     # Test sales can access their own clients
     sales_user = MockUser(2, 'sales')
     own_client = MockClient(2)  # Same user ID
-    assert can_access_client(sales_user, own_client) == True
+    assert can_access_client(sales_user, own_client)
 
     # Test sales cannot access other clients
     other_client = MockClient(999)  # Different user ID
-    assert can_access_client(sales_user, other_client) == False
+    assert not can_access_client(sales_user, other_client)
 
     # Test support cannot access clients directly
     support_user = MockUser(3, 'support')
-    assert can_access_client(support_user, client) == False
+    assert not can_access_client(support_user, client)
 
 
 def test_session_manager_edge_cases():
@@ -173,14 +171,14 @@ def test_session_manager_edge_cases():
 
     # Test with invalid session file
     manager = SessionManager('nonexistent_session.json')
-    assert manager.load_session() == False
+    assert not manager.load_session()
 
     # Test with corrupted session file
     with open('corrupted_session.json', 'w') as f:
         f.write('invalid json content')
 
     manager = SessionManager('corrupted_session.json')
-    assert manager.load_session() == False
+    assert not manager.load_session()
 
     # Clean up
     if os.path.exists('corrupted_session.json'):
@@ -203,7 +201,7 @@ def test_session_manager_edge_cases():
     with open('test_expired_session.json', 'w') as f:
         json.dump(expired_session, f)
 
-    assert manager.load_session() == False  # Should not load expired session
+    assert not manager.load_session()  # Should not load expired session
 
     # Clean up
     if os.path.exists('test_expired_session.json'):
@@ -216,8 +214,6 @@ def test_simple_coverage_boost():
     from config import Config
     assert Config.DATABASE_URL is not None
 
-    # Test basic imports work
-    from epic_events.utils.auth import authenticate_user
     from epic_events.utils.permissions import has_management_permission
     from epic_events.utils.display import print_success
 
@@ -230,4 +226,4 @@ def test_simple_coverage_boost():
             self.department = department
 
     user = MockUser('management')
-    assert has_management_permission(user) == True
+    assert has_management_permission(user)

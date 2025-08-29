@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from .base_controller import BaseController
 from epic_events.models.user import User

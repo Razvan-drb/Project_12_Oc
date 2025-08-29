@@ -1,4 +1,3 @@
-import pytest
 from epic_events.utils.database import get_db, init_db
 
 

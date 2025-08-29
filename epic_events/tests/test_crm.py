@@ -3,7 +3,6 @@ from epic_events.controllers.client_controller import client_controller
 from epic_events.controllers.contract_controller import contract_controller
 from epic_events.controllers.event_controller import event_controller
 from epic_events.controllers.user_controller import user_controller
-from epic_events.utils.display import print_success, print_info, print_error
 
 
 def test_crm_functionality():

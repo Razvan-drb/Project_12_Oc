@@ -1,6 +1,4 @@
-from sqlalchemy.orm import Session
 from epic_events.utils.database import get_db
-from epic_events.utils.session import session_manager
 from epic_events.utils.permissions import has_management_permission, has_sales_permission, has_support_permission
 import sentry_sdk
 

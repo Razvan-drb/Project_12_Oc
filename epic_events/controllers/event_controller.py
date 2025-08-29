@@ -1,5 +1,3 @@
-from sqlalchemy.orm import Session
-from sqlalchemy import or_
 from .base_controller import BaseController
 from epic_events.models.event import Event
 from epic_events.models.contract import Contract
@@ -148,7 +146,7 @@ class EventController(BaseController):
     def get_events_without_support(self, current_user):
         """Get all events without support contact assigned"""
         try:
-            events = self.db.query(Event).filter(Event.support_contact_id == None).all()
+            events = self.db.query(Event).filter(Event.support_contact_id.is_(None)).all()
             return events
         except Exception as e:
             print_error(self.handle_error(e, "fetching events without support"))

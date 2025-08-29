@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from epic_events.utils.database import get_db
 from epic_events.utils.auth import authenticate_user
 from epic_events.utils.session import session_manager

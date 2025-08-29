@@ -3,7 +3,7 @@ import sentry_sdk
 from config import Config
 from epic_events.cli import auth_group, client_group, contract_group, event_group, user_group
 
-# Initialize Sentry only if DSN is provided
+
 if Config.SENTRY_DSN and Config.SENTRY_DSN.strip():
     try:
         sentry_sdk.init(
@@ -16,10 +16,12 @@ if Config.SENTRY_DSN and Config.SENTRY_DSN.strip():
 else:
     print("Sentry not configured - running without error monitoring")
 
+
 @click.group()
 def cli():
     """Epic Events CRM - Command Line Interface"""
     pass
+
 
 # Add all command groups
 cli.add_command(auth_group, name='auth')
@@ -28,11 +30,9 @@ cli.add_command(contract_group, name='contracts')
 cli.add_command(event_group, name='events')
 cli.add_command(user_group, name='users')
 
+
 if __name__ == '__main__':
     cli()
 # TODO creer une erreur volontaire pour tester sentry
 # le code est correctement formaté et documenté, flake8
-# la couverture de tests est suffisante, 80 %
 # l’étudiant sait expliquer comment et pourquoi il a structuré son code (design patterns, data access layer, séparation des responsabilités).
-
-

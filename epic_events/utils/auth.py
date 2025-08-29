@@ -8,5 +8,6 @@ def authenticate_user(email: str, password: str, db: Session):
         return user
     return None
 
+
 def get_current_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()

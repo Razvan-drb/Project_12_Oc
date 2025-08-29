@@ -1,21 +1,18 @@
-import pytest
 from epic_events.controllers.auth_controller import login
 from epic_events.controllers.client_controller import client_controller
-from epic_events.controllers.contract_controller import contract_controller
-from epic_events.controllers.event_controller import event_controller
 from epic_events.controllers.user_controller import user_controller
 
 
 def test_controller_final_edge_cases():
     """Final edge case tests for controllers"""
-    user = login("test_manager@epicevents.com", "test123")
+    login("test_manager@epicevents.com", "test123")
 
     # Test with None user (should handle gracefully)
     try:
         result = client_controller.get_all_clients(None)
         assert result is not None  # Should return empty list or handle gracefully
-    except:
-        pass  # Some controllers might expect a valid user
+    except Exception:
+        pass
 
     # Test permission errors more thoroughly
     sales_user = login("test_sales@epicevents.com", "test123")
@@ -64,4 +61,4 @@ def test_base_controller_final_polish():
 
     # Test commit_changes with rollback scenario
     result = controller.commit_changes()
-    assert result is not None  # Should return True or False
+    assert result is not None

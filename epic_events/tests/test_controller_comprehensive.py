@@ -1,4 +1,3 @@
-import pytest
 from epic_events.controllers.auth_controller import login
 from epic_events.controllers.client_controller import client_controller
 from epic_events.controllers.contract_controller import contract_controller
@@ -30,12 +29,12 @@ def test_client_controller_comprehensive(db_session):
 
     # Test update_client
     if clients:
-        result = client_controller.update_client(clients[0].id, user, full_name="Updated Name")
+        client_controller.update_client(clients[0].id, user, full_name="Updated Name")
         # The controller prints success but returns None
 
     # Test delete_client (management only)
     if clients:
-        result = client_controller.delete_client(clients[0].id, user)
+        client_controller.delete_client(clients[0].id, user)
         # The controller prints success but returns None
 
 
@@ -60,7 +59,7 @@ def test_contract_controller_comprehensive(db_session):
 
     # Test update_contract
     if contracts:
-        result = contract_controller.update_contract(contracts[0].id, user, is_signed=True)
+        contract_controller.update_contract(contracts[0].id, user, is_signed=True)
         # Controller prints success
 
 
@@ -85,8 +84,7 @@ def test_event_controller_comprehensive(db_session):
 
     # Test update_event
     if events:
-        result = event_controller.update_event(events[0].id, user, notes="Test notes")
-        # Controller prints success
+        event_controller.update_event(events[0].id, user, notes="Test notes")
 
 
 def test_user_controller_comprehensive(db_session):
@@ -104,10 +102,9 @@ def test_user_controller_comprehensive(db_session):
         assert user_obj is not None
 
     # Test create_user (management only)
-    result = user_controller.create_user("New User", "newuser@test.com", "password", "sales", user)
+    user_controller.create_user("New User", "newuser@test.com", "password", "sales", user)
     # Controller prints success
 
     # Test update_user
     if users:
-        result = user_controller.update_user(users[0].id, user, full_name="Updated Name")
-        # Controller prints success
+        user_controller.update_user(users[0].id, user, full_name="Updated Name")

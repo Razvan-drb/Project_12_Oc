@@ -1,10 +1,8 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from .base_controller import BaseController
 from epic_events.models.client import Client
-from epic_events.models.user import User
 from epic_events.utils.permissions import can_access_client
-from epic_events.utils.display import print_success, print_error, print_warning
+from epic_events.utils.display import print_success, print_error
 
 
 class ClientController(BaseController):
@@ -40,7 +38,6 @@ class ClientController(BaseController):
         except Exception as e:
             return print_error(self.handle_error(e, "creating client"))
 
-
     def update_client(self, client_id, current_user, **kwargs):
         """Update client information"""
         try:
@@ -65,7 +62,6 @@ class ClientController(BaseController):
         except Exception as e:
             return print_error(self.handle_error(e, "updating client"))
 
-
     def get_all_clients(self, current_user):
         """Get all clients (read-only access for all)"""
         try:
@@ -74,7 +70,6 @@ class ClientController(BaseController):
         except Exception as e:
             print_error(self.handle_error(e, "fetching clients"))
             return []
-
 
     def get_client_by_id(self, client_id, current_user):
         """Get specific client by ID with permission check"""

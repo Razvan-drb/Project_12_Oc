@@ -1,4 +1,3 @@
-import pytest
 from epic_events.controllers.auth_controller import login
 from epic_events.controllers.client_controller import client_controller
 from epic_events.controllers.contract_controller import contract_controller
@@ -88,8 +87,7 @@ def test_auth_controller_comprehensive():
     assert current_user is not None
 
     # Test logout
-    result = logout()
-    # Should print success message
+    logout()
 
     # Test get_current_user after logout
     current_user = get_current_user()

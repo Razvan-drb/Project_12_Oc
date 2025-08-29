@@ -1,4 +1,3 @@
-import pytest
 from epic_events.controllers.auth_controller import login
 from epic_events.controllers.client_controller import client_controller
 from epic_events.controllers.contract_controller import contract_controller
@@ -16,14 +15,14 @@ def test_permission_denied_scenarios():
     assert users == []  # Should return empty list due to permission error
 
     # Sales should not be able to create contracts
-    result = contract_controller.create_contract(1, 1000.0, sales_user)
+    contract_controller.create_contract(1, 1000.0, sales_user)
     # Should print permission error
 
     # Support user trying to access sales functions
     support_user = login("test_support@epicevents.com", "test123")
 
     # Support should not be able to create clients
-    result = client_controller.create_client("Test", "test@test.com", "+123", "Test Co", support_user)
+    client_controller.create_client("Test", "test@test.com", "+123", "Test Co", support_user)
     # Should print permission error
 
 

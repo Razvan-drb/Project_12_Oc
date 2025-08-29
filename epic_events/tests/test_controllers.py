@@ -1,4 +1,3 @@
-import pytest
 from epic_events.controllers.client_controller import client_controller
 from epic_events.controllers.auth_controller import login
 
@@ -38,9 +37,9 @@ def test_permission_checks(db_session):
 
     # Login as sales user
     sales_user = login("test_sales@epicevents.com", "test123")
-    assert has_sales_permission(sales_user) == True
-    assert has_management_permission(sales_user) == False
+    assert has_sales_permission(sales_user)
+    assert not has_management_permission(sales_user)
 
     # Login as management user
     management_user = login("test_manager@epicevents.com", "test123")
-    assert has_management_permission(management_user) == True
+    assert has_management_permission(management_user)

@@ -1,8 +1,5 @@
-import pytest
 from epic_events.models.user import User
 from epic_events.models.client import Client
-from epic_events.models.contract import Contract
-from epic_events.models.event import Event
 
 
 def test_user_model_creation(db_session):
@@ -18,8 +15,8 @@ def test_user_model_creation(db_session):
     db_session.commit()
 
     assert user.id is not None
-    assert user.check_password("securepassword") == True
-    assert user.check_password("wrongpassword") == False
+    assert user.check_password("securepassword")
+    assert not user.check_password("wrongpassword")
 
 
 def test_client_model(db_session):

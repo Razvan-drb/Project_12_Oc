@@ -3,13 +3,13 @@ import os
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-# Add the project root to Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from epic_events.utils.database import Base
 from epic_events.models.user import User
 from epic_events.models.client import Client
+from epic_events.utils import database
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 # Use in-memory database for tests
 TEST_DATABASE_URL = 'sqlite:///:memory:'
@@ -91,11 +91,7 @@ def db_session():
         yield db
     finally:
         db.close()
-        # No need to rollback since we're using a new session each time
 
-
-# Monkey patch the get_db function to use our test session
-from epic_events.utils import database
 
 original_get_db = database.get_db
 

@@ -70,3 +70,24 @@ python main.py users list
 
 #### <span style="color: #307a4a;">Create user</span>
 python main.py users create
+
+## Testing
+
+The project has comprehensive test coverage exceeding 80%. To run the tests:
+
+
+# Install test dependencies
+pip install pytest coverage
+
+# Run all tests with coverage
+coverage run -m pytest tests/ -v
+
+# Generate coverage report
+coverage report -m
+
+# Generate HTML report (optional)
+coverage html
+
+![Test Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)
+
+![img.png](img.png)

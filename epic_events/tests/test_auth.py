@@ -1,5 +1,4 @@
-import pytest
-from epic_events.controllers.auth_controller import login, logout, get_current_user
+from epic_events.controllers.auth_controller import login, get_current_user
 
 
 def test_successful_login(db_session):

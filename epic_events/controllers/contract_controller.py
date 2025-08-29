@@ -1,9 +1,6 @@
-from sqlalchemy.orm import Session
-from sqlalchemy import or_, and_
 from .base_controller import BaseController
 from epic_events.models.contract import Contract
 from epic_events.models.client import Client
-from epic_events.models.user import User
 from epic_events.utils.display import print_success, print_error
 from epic_events.utils.permissions import can_access_client
 
@@ -98,7 +95,7 @@ class ContractController(BaseController):
     def get_unsigned_contracts(self, current_user):
         """Get all unsigned contracts"""
         try:
-            contracts = self.db.query(Contract).filter(Contract.is_signed == False).all()
+            contracts = self.db.query(Contract).filter(Contract.is_signed.is_(False)).all()
             return contracts
         except Exception as e:
             print_error(self.handle_error(e, "fetching unsigned contracts"))
